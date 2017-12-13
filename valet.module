@@ -105,15 +105,42 @@ function valet_menu() {
 }
 
 /**
+ * Valet form.
+ */
+function valet_form($form, &$form_state) {
+
+  $form['valet_form'] = array(
+    '#type' => 'search',
+    '#title' => t('Jump to'),
+    '#id' => 'valet-input',
+    '#attributes' => array('class' => array('valet-input'), 'placeholder' => array('Search...')),
+  );
+  $form['valet_form']['#theme'] = array('form--valet');
+
+  dpm($form);
+
+  return $form;
+}
+
+/**
  * Implements hook_theme().
  */
 function valet_theme($existing, $type, $theme, $path) {
-  return array(
-    'valet' => array(
-      'render element' => 'content',
-      'template' => 'theme/valet',
-    )
+
+  // Template for Valet wrapping markup
+  $items['valet'] = array(
+    'render element' => 'content',
+    'template' => 'templates/valet',
   );
+
+  // Template for Valet wrapping markup
+  $items['valet_form'] = array(
+    'render element' => 'form',
+    'template' => 'form--valet',
+    'path' => drupal_get_path('module', 'valet') . '/templates/form',
+  );
+
+  return $items;
 }
 
 /**
@@ -125,7 +152,7 @@ function valet_preprocess_html(&$vars) {
     global $theme_key;
     if(variable_get('valet_admin') && $theme_key != variable_get('admin_theme')) return;
 
-    $form = drupal_get_form('valet_search_form');
+    $form = drupal_get_form('valet_form');
     $content = array(
       'form' => render($form),
     );
@@ -215,21 +242,6 @@ function valet_library() {
     ),
   );
   return $libraries;
-}
-
-/**
- * Popup search box form.
- */
-function valet_search_form($form, &$form_state) {
-  $form['query'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Jump to'),
-    '#size' => 30,
-    '#maxlength' => 60,
-    '#id' => 'valet-search',
-  );
-
-  return $form;
 }
 
 /**

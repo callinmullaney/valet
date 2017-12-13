@@ -11,6 +11,10 @@
     border-radius: $border-radius;
     z-index: 2;
     // transform: translate3d(0, 3em, 0);
+
+    label {
+      display: none;
+    }
   }
 
   [type=search] {

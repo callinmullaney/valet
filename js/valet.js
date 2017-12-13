@@ -35,7 +35,7 @@ Drupal.behaviors.valet = {
 
     me.valetSelector = $('#valet');
     if(!me.valetSelector.length) return;
-    me.valetSearchSelector = $('#valet-search');
+    me.valetSearchSelector = $('#valet-form');
 
     // Get locally stored links object
     if(!Drupal.settings.valet.purge){
