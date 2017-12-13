@@ -182,7 +182,7 @@ function valet_library() {
     'website' => 'http://www.ashenrayne.com',
     'version' => '3.1-beta1',
     'js' => array(
-      drupal_get_path('module', 'valet') . '/js/valet.min.js' => array('group' => JS_LIBRARY),
+      drupal_get_path('module', 'valet') . '/js/valet.js' => array('group' => JS_LIBRARY),
     ),
     'css' => array(
       drupal_get_path('module', 'valet') . '/css/valet.css' => array(

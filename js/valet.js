@@ -37,9 +37,6 @@ Drupal.behaviors.valet = {
     if(!me.valetSelector.length) return;
     me.valetSearchSelector = $('#valet-search');
 
-    // Hide valet immediately
-    me.valetSelector.hide();
-
     // Get locally stored links object
     if(!Drupal.settings.valet.purge){
       Lawnchair({name:'valet'}, function(){
@@ -125,14 +122,14 @@ Drupal.behaviors.valet = {
 
     // Bind hotkeys.
     $(document).bind('keydown', Drupal.settings.valet.modifier+'+'+Drupal.settings.valet.key, function() {
-      me.show();
+      me.valetSelector.addClass('open');
       return false;
     });
     $(document).bind('keydown', 'esc', function() {
-      me.hide();
+      me.valetSelector.removeClass('open');
     });
     me.valetSearchSelector.bind('keydown', 'esc', function() {
-      me.hide();
+      me.valetSelector.removeClass('open');
     });
     // Hotkey for children
     me.valetSearchSelector.bind('keydown', Drupal.settings.valet.modifier, function() {
@@ -141,8 +138,8 @@ Drupal.behaviors.valet = {
     });
 
     // Click anywhere else to close.
-    $(document).click(function() {
-      me.hide();
+    $('#valet-overlay').click(function() {
+      me.valetSelector.removeClass('open');
     });
 
     // Disable form submit
